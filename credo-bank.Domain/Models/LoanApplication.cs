@@ -1,6 +1,6 @@
-﻿using credo_bank.DAL.Enums;
+﻿using credo_bank.Domain.Enums;
 
-namespace credo_bank.DAL.Models;
+namespace credo_bank.Domain.Models;
 
 public class LoanApplication : GenericEntity
 {

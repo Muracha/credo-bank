@@ -15,4 +15,8 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.20" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\credo-bank.Domain\credo-bank.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

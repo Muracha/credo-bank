@@ -1,4 +1,4 @@
-﻿namespace credo_bank.DAL.Enums;
+﻿namespace credo_bank.Domain.Enums;
 
 public enum Application
 {

@@ -1,4 +1,4 @@
-﻿namespace credo_bank.DAL.Models;
+﻿namespace credo_bank.Domain.Models;
 
 public class User : GenericEntity
 {

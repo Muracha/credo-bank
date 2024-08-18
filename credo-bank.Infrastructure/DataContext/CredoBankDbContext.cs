@@ -1,4 +1,4 @@
-﻿using credo_bank.DAL.Models;
+﻿using credo_bank.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace credo_bank.DAL.DataContext;
