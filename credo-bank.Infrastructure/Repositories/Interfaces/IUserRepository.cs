@@ -12,4 +12,10 @@ public interface IUserRepository
 
     Task<User> GetUserWithLoans(int userId,
         CancellationToken cancellationToken = default);
+
+    Task<bool> UpdateUserAsync(User user,
+        CancellationToken cancellationToken = default);
+
+    Task<User> GetUserByIdentificationNumber(int number,
+        CancellationToken cancellationToken = default);
 }

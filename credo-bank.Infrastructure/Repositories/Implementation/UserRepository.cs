@@ -25,4 +25,18 @@ public class UserRepository : BaseRepository, IUserRepository
         CancellationToken cancellationToken = default)
         => await _context.Users.Include(x => x.LoanApplications)
             .SingleOrDefaultAsync(x => x.Id == userId, cancellationToken: cancellationToken);
+    
+    public async Task<User> GetUserByIdentificationNumber(int number,
+        CancellationToken cancellationToken = default)
+    {
+        return await _context.Users.AsNoTracking().Where(x => x.IdentificationNumber == number)
+            .SingleOrDefaultAsync(cancellationToken: cancellationToken);
+    }
+    
+    public async Task<bool> UpdateUserAsync(User user,
+        CancellationToken cancellationToken = default)
+    {
+        _context.Users.Update(user);
+        return await _context.SaveChangesAsync(cancellationToken: cancellationToken) > 0;
+    }
 }
