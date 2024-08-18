@@ -16,22 +16,27 @@ public class UserRepository : BaseRepository, IUserRepository
         await _context.SaveChangesAsync(cancellationToken : cancellationToken);
         return user.Id;
     }
-
+    
+    public async Task<IQueryable<User>> GetAllUsersAsync(
+        CancellationToken cancellationToken = default)
+        => _context.Users.AsNoTracking();
+    
     public async Task<User> GetUserByIdAsync(int userId,
         CancellationToken cancellationToken = default)
-        => await _context.Users.FindAsync(new Object[userId], cancellationToken : cancellationToken);
+        => await _context.Users.AsNoTracking().Where(x => x.Id == userId)
+            .SingleOrDefaultAsync(cancellationToken: cancellationToken);
 
     public async Task<User> GetUserWithLoans(int userId,
         CancellationToken cancellationToken = default)
-        => await _context.Users.Include(x => x.LoanApplications)
-            .SingleOrDefaultAsync(x => x.Id == userId, cancellationToken: cancellationToken);
-    
+        => await _context.Users.AsNoTracking()
+            .Include(x => x.LoanApplications)
+            .Where(x => x.Id == userId)
+            .SingleOrDefaultAsync(cancellationToken: cancellationToken);
+
     public async Task<User> GetUserByIdentificationNumber(int number,
         CancellationToken cancellationToken = default)
-    {
-        return await _context.Users.AsNoTracking().Where(x => x.IdentificationNumber == number)
+        => await _context.Users.AsNoTracking().Where(x => x.IdentificationNumber == number)
             .SingleOrDefaultAsync(cancellationToken: cancellationToken);
-    }
     
     public async Task<bool> UpdateUserAsync(User user,
         CancellationToken cancellationToken = default)

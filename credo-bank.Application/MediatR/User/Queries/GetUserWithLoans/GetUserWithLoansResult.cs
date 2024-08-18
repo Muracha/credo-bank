@@ -1,6 +1,5 @@
-﻿namespace credo_bank.Application.MediatR.User.Queries.GetUserWithLoans;
+﻿using credo_bank.Application.MediatR.User.DTO;
 
-public class GetUserWithLoansResult
-{
-    
-}
+namespace credo_bank.Application.MediatR.User.Queries.GetUserWithLoans;
+
+public record class GetUserWithLoansResult(UserDto UserDto);
