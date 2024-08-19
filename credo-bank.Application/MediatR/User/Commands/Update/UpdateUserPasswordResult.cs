@@ -1,6 +1,3 @@
 ﻿namespace credo_bank.Application.MediatR.User.Commands.Update;
 
-public class UpdateUserResult
-{
-    
-}
+public record UpdateUserPasswordResult(bool IsSuccess);
