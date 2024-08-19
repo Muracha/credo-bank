@@ -1,7 +1,7 @@
 using System.Text;
 using credo_bank.Application.Settings;
 using credo_bank.Configuration;
-using credo_bank.DAL.DataContext;
+using credo_bank.Infrastructure.DataContext;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

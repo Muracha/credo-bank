@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
+using credo_bank.Application.MediatR.LoanApplication.Command.Add;
+using credo_bank.Application.MediatR.User.Commands.Login;
+using credo_bank.Application.MediatR.User.Commands.RefreshToken;
 using credo_bank.Application.MediatR.User.Commands.Register;
-using credo_bank.Application.MediatR.User.Models;
-using credo_bank.Application.MediatR.User.Models.DTO;
+using credo_bank.Application.MediatR.User.Commands.Update;
+using credo_bank.Application.Models.DTO;
+using credo_bank.Application.Models.DTO.Request;
 using credo_bank.Domain.Models;
 
 namespace credo_bank.Application.Mapper;
@@ -10,8 +14,14 @@ public class AutoMapperConfig : Profile
 {
     public AutoMapperConfig()
     {
-        CreateMap<User, RegisterUserResult>().ReverseMap();
         CreateMap<User, UserDto>().ReverseMap();
         CreateMap<LoanApplication, LoanApplicationDto>().ReverseMap();
+        
+        //Request Dtos
+        CreateMap<ChangePasswordInputDto, UpdateUserPasswordCommand>().ReverseMap();
+        CreateMap<RegisterUserInputDto, RegisterUserCommand>().ReverseMap();
+        CreateMap<LoginInputDto, LoginUserCommand>().ReverseMap();
+        CreateMap<RefreshTokenInputDto, RefreshTokenCommand>().ReverseMap();
+        CreateMap<ApplyForLoanInputDto, AddLoanApplicationCommand>().ReverseMap();
     }
 }

@@ -3,7 +3,4 @@ using MediatR;
 
 namespace credo_bank.Application.MediatR.User.Queries.GetUserById;
 
-public record class GetUserByIdQuery : IRequest<ApiServiceResponse<GetUserByIdResult>>
-{
-    public int Id { get; set; }
-}
+public record class GetUserByIdQuery(int Id) : IRequest<ApiWrapper<GetUserByIdResult>>;

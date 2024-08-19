@@ -1,4 +1,4 @@
-﻿using credo_bank.DAL.DataContext;
+﻿using credo_bank.Infrastructure.DataContext;
 
 namespace credo_bank.DAL.Repositories.Implementation;
 

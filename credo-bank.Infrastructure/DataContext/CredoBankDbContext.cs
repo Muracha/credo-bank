@@ -1,7 +1,7 @@
 ﻿using credo_bank.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace credo_bank.DAL.DataContext;
+namespace credo_bank.Infrastructure.DataContext;
 
 public class CredoBankDbContext : DbContext
 {

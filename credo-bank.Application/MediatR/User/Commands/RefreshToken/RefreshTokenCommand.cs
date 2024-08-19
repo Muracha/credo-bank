@@ -3,7 +3,4 @@ using MediatR;
 
 namespace credo_bank.Application.MediatR.User.Commands.RefreshToken;
 
-public record RefreshTokenCommand : IRequest<ApiServiceResponse<RefreshTokenResult>>
-{
-    public string Token { get; set; }
-}
+public record RefreshTokenCommand(string Token) : IRequest<ApiWrapper<RefreshTokenResult>>;

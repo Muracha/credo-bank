@@ -1,9 +1,7 @@
 ﻿using System.Security.Cryptography;
-using credo_bank.Application.MediatR.User.Commands.Register;
-using credo_bank.Application.MediatR.User.Models.DTO;
+using credo_bank.Application.Models.DTO;
 using credo_bank.Application.Settings;
 using credo_bank.Application.Utilities.Jwt;
-using credo_bank.DAL.Repositories.Implementation;
 using credo_bank.DAL.Repositories.Interfaces;
 using credo_bank.Domain.Models;
 

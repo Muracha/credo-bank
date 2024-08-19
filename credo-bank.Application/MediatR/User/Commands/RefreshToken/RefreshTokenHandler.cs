@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 
 namespace credo_bank.Application.MediatR.User.Commands.RefreshToken;
 
-public class RefreshTokenHandler : IRequestHandler<RefreshTokenCommand, ApiServiceResponse<RefreshTokenResult>>
+public class RefreshTokenHandler : IRequestHandler<RefreshTokenCommand, ApiWrapper<RefreshTokenResult>>
 {
     private readonly IUserRepository _userRepository;
     private readonly IRefreshTokenRepository _refreshTokenRepository;
@@ -22,21 +22,21 @@ public class RefreshTokenHandler : IRequestHandler<RefreshTokenCommand, ApiServi
         _jwtSettings = jwtSettings.Value;
     }
     
-    public async Task<ApiServiceResponse<RefreshTokenResult>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
+    public async Task<ApiWrapper<RefreshTokenResult>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetByRefreshTokenAsync(request.Token, cancellationToken: cancellationToken);
         if (user is null)
-            return ApiServiceResponse<RefreshTokenResult>.FailureResponse("Invalid refresh token");
+            return ApiWrapper<RefreshTokenResult>.FailureResponse("Invalid refresh token");
 
         var refreshToken = user.RefreshTokens.SingleOrDefault(x => x.Token == request.Token);
         if (refreshToken is null || refreshToken.Invalidated || refreshToken.ExpirationDate < DateTime.UtcNow)
-            return ApiServiceResponse<RefreshTokenResult>.FailureResponse("Refresh token is invalid or expired");
+            return ApiWrapper<RefreshTokenResult>.FailureResponse("Refresh token is invalid or expired");
 
         var newTokens = await JwtGenerator.GenerateTokens(user, _jwtSettings, _refreshTokenRepository, cancellationToken);
 
         refreshToken.InvalidateToken();
         await _refreshTokenRepository.UpdateAsync(refreshToken, cancellationToken: cancellationToken);
         
-        return ApiServiceResponse<RefreshTokenResult>.SuccessResponse(new RefreshTokenResult(newTokens), "Refresh token renewed successfully");
+        return ApiWrapper<RefreshTokenResult>.SuccessResponse(new RefreshTokenResult(newTokens), "Refresh token renewed successfully");
     }
 }

@@ -1,4 +1,5 @@
-﻿using credo_bank.Application.Settings;
+﻿using credo_bank.Application.Common;
+using credo_bank.Application.Settings;
 using credo_bank.DAL.Repositories.Implementation;
 using credo_bank.DAL.Repositories.Interfaces;
 
@@ -9,11 +10,12 @@ internal static class ServiceCollectionExtension
     public static void AddServices(this IServiceCollection services)
     {
         //AutoMapper
-        // services.AddAutoMapper(typeof(AutoMapperProfiler));
-        // //FluentValidation
-        // services.AddValidatorsFromAssemblyContaining<IApplicationLayerAssemblyMarker>();
+        services.AddAutoMapper(typeof(IApplicationLayerAssemblyMarker).Assembly);
         
-        services.AddScoped<IUserRepository, UserRepository>();
+        //Mediator
+        services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(IApplicationLayerAssemblyMarker).Assembly));
+        
+        //Repositories
         services.AddScoped<ILoanApplicationRepository, LoanApplicationRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
