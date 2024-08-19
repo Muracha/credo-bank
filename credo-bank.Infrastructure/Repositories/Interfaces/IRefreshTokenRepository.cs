@@ -1,0 +1,14 @@
+﻿using credo_bank.Domain.Models;
+
+namespace credo_bank.DAL.Repositories.Interfaces;
+
+public interface IRefreshTokenRepository
+{
+    Task<bool> SaveRefreshTokenAsync(RefreshToken refreshTokenEntity,
+        CancellationToken cancellationToken = default);
+
+    Task<RefreshToken?> GetRefreshTokenByValueAsync(string tokenValue,
+        CancellationToken cancellationToken = default);
+
+    Task UpdateAsync(RefreshToken refreshToken, CancellationToken cancellationToken = default);
+}

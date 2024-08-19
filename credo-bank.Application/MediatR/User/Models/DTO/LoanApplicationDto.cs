@@ -1,6 +1,6 @@
 ﻿using credo_bank.Domain.Enums;
 
-namespace credo_bank.Application.MediatR.User.DTO;
+namespace credo_bank.Application.MediatR.User.Models.DTO;
 
 public class LoanApplicationDto
 {

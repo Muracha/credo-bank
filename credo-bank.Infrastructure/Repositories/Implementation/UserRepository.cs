@@ -9,7 +9,7 @@ public class UserRepository : BaseRepository, IUserRepository
 {
     public UserRepository(CredoBankDbContext context) : base(context) { }
     
-    public async Task<int> AddUserAsync(User user,
+    public async Task<int> AddUserAsync(User? user,
         CancellationToken cancellationToken = default)
     {
         _context.Users.Add(user);
@@ -17,11 +17,11 @@ public class UserRepository : BaseRepository, IUserRepository
         return user.Id;
     }
     
-    public async Task<IQueryable<User>> GetAllUsersAsync(
+    public async Task<IQueryable<User?>> GetAllUsersAsync(
         CancellationToken cancellationToken = default)
         => _context.Users.AsNoTracking();
     
-    public async Task<User> GetUserByIdAsync(int userId,
+    public async Task<User?> GetUserByIdAsync(int userId,
         CancellationToken cancellationToken = default)
         => await _context.Users.AsNoTracking().Where(x => x.Id == userId)
             .SingleOrDefaultAsync(cancellationToken: cancellationToken);
@@ -38,10 +38,17 @@ public class UserRepository : BaseRepository, IUserRepository
         => await _context.Users.AsNoTracking().Where(x => x.IdentificationNumber == number)
             .SingleOrDefaultAsync(cancellationToken: cancellationToken);
     
-    public async Task<bool> UpdateUserAsync(User user,
+    public async Task<bool> UpdateUserAsync(User? user,
         CancellationToken cancellationToken = default)
     {
         _context.Users.Update(user);
         return await _context.SaveChangesAsync(cancellationToken: cancellationToken) > 0;
     }
+    
+    public async Task<User> GetByRefreshTokenAsync(string refreshToken,
+        CancellationToken cancellationToken = default)
+        => await _context.Users.AsNoTracking()
+            .Include(u => u.RefreshTokens)
+            .SingleOrDefaultAsync(u => u.RefreshTokens.Any(t => t.Token == refreshToken),
+                cancellationToken: cancellationToken);
 }

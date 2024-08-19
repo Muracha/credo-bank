@@ -1,3 +1,6 @@
-﻿namespace credo_bank.Application.MediatR.User.Commands.Register;
+﻿using System.ComponentModel.DataAnnotations;
+using credo_bank.Application.MediatR.User.Models.DTO;
 
-public record RegisterUserResult(bool B, string IfExsists, int? ExistingUserId);
+namespace credo_bank.Application.MediatR.User.Commands.Register;
+
+public record RegisterUserResult(AuthReposnoseDto AuthReposnoseDto);
