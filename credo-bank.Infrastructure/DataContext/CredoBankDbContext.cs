@@ -5,8 +5,6 @@ namespace credo_bank.Infrastructure.DataContext;
 
 public class CredoBankDbContext : DbContext
 {
-    public CredoBankDbContext() { }
-
     public CredoBankDbContext(DbContextOptions<CredoBankDbContext> options) : base(options) { }
     
     public DbSet<User?> Users { get; set; }
