@@ -1,10 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using credo_bank.Domain.Enums;
 
 namespace credo_bank.Domain.Models;
 
 public class LoanApplication : GenericEntity
 {
+    [ForeignKey("User")]
+    [Required]
+    public int UserId { get; set; }
+    
     [Required]
     public int LoanAmount { get; set; }
     
@@ -19,6 +24,8 @@ public class LoanApplication : GenericEntity
     
     [Required]
     public LoanType LoanType { get; set; }
+
+    public bool IsDeleted { get; set; } = false;
     
     public DateTime CreateDate { get; set; } = DateTime.Now;
     
