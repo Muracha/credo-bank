@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using credo_bank.Application.MediatR.User.DTO;
-using credo_bank.Application.MediatR.User.Queries.GetUser;
+using credo_bank.Application.MediatR.User.Models;
+using credo_bank.Application.MediatR.User.Models.DTO;
 using credo_bank.Application.MediatR.User.Queries.GetUserById;
 using credo_bank.Application.Utilities.ApiServiceResponse;
 using credo_bank.DAL.Repositories.Interfaces;

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using credo_bank.Application.MediatR.User.DTO;
-using credo_bank.Application.MediatR.User.Queries.GetUserById;
+using credo_bank.Application.MediatR.User.Models;
+using credo_bank.Application.MediatR.User.Models.DTO;
 using credo_bank.Application.Utilities.ApiServiceResponse;
 using credo_bank.DAL.Repositories.Interfaces;
 using MediatR;
 
-namespace credo_bank.Application.MediatR.User.Queries.GetUser;
+namespace credo_bank.Application.MediatR.User.Queries.GetUserById;
 
 public class GetUserByIdHandler : IRequestHandler<GetUserByIdQuery, ApiServiceResponse<GetUserByIdResult>>
 {

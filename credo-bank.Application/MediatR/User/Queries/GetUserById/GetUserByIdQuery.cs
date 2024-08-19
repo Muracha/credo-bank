@@ -1,8 +1,7 @@
-﻿using credo_bank.Application.MediatR.User.Queries.GetUserById;
-using credo_bank.Application.Utilities.ApiServiceResponse;
+﻿using credo_bank.Application.Utilities.ApiServiceResponse;
 using MediatR;
 
-namespace credo_bank.Application.MediatR.User.Queries.GetUser;
+namespace credo_bank.Application.MediatR.User.Queries.GetUserById;
 
 public record class GetUserByIdQuery : IRequest<ApiServiceResponse<GetUserByIdResult>>
 {
