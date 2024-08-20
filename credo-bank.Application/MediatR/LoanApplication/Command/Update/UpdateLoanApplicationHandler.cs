@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using credo_bank.Application.Interfaces;
 using credo_bank.Application.Models.DTO;
 using credo_bank.Application.Models.DTO.Response;
 using credo_bank.Application.Utilities.ApiServiceResponse;
-using credo_bank.Infrastructure.Repositories.Interfaces;
 using MediatR;
 
 namespace credo_bank.Application.MediatR.LoanApplication.Command.Update;

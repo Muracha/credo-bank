@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using credo_bank.Application.Helper;
+using credo_bank.Application.Interfaces;
 using credo_bank.Application.Settings;
 using credo_bank.Application.Utilities.ApiServiceResponse;
-using credo_bank.Infrastructure.Repositories.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Options;
 

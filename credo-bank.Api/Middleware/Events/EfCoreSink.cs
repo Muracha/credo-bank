@@ -1,5 +1,4 @@
 ﻿using credo_bank.Domain.Models;
-using credo_bank.Infrastructure.Repositories.Interfaces;
 using Serilog.Events;
 
 namespace credo_bank.Middleware.Events;

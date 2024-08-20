@@ -1,5 +1,5 @@
-﻿using credo_bank.Application.Utilities.ApiServiceResponse;
-using credo_bank.Infrastructure.Repositories.Interfaces;
+﻿using credo_bank.Application.Interfaces;
+using credo_bank.Application.Utilities.ApiServiceResponse;
 using MediatR;
 
 namespace credo_bank.Application.MediatR.LoanApplication.Command.Delete;

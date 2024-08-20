@@ -1,9 +1,11 @@
 using System.Text;
 using credo_bank.Application.Settings;
 using credo_bank.Configuration;
+using credo_bank.Consumer;
 using credo_bank.Infrastructure.DataContext;
 using credo_bank.Middleware;
 using credo_bank.Middleware.Events;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -70,6 +72,27 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumer<LoanApplicationConsumer>();
+
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("localhost", "/", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+
+        cfg.ReceiveEndpoint("loan-applications", e =>
+        {
+            e.ConfigureConsumer<LoanApplicationConsumer>(context);
+        });
+    });
+});
+
+builder.Services.AddMassTransitHostedService();
+
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -86,10 +109,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

@@ -1,19 +1,37 @@
-﻿using credo_bank.Domain.Models;
+﻿using credo_bank.Application.Interfaces;
+using credo_bank.Application.Models.DTO.Messages;
+using credo_bank.Domain.Models;
 using credo_bank.Infrastructure.DataContext;
-using credo_bank.Infrastructure.Repositories.Interfaces;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
 namespace credo_bank.Infrastructure.Repositories.Implementation;
 
 public class LoanApplicationRepository : BaseRepository, ILoanApplicationRepository
 {
-    public LoanApplicationRepository(CredoBankDbContext context) : base(context) { }
+    private readonly IPublishEndpoint _publishEndpoint;
+    public LoanApplicationRepository(CredoBankDbContext context, IPublishEndpoint publishEndpoint) : base(context)
+    {
+        _publishEndpoint = publishEndpoint;
+    }
     
     public async Task<int> AddLoanApplicationAsync(LoanApplication? loan,
         CancellationToken cancellationToken = default)
     {
         _context.LoanApplications.Add(loan);
         await _context.SaveChangesAsync(cancellationToken : cancellationToken);
+        
+        await _publishEndpoint.Publish(new LoanApplicationSubmitted
+        {
+            LoanId = loan.Id,
+            UserId = loan.UserId,
+            LoanType = loan.LoanType,
+            LoanAmount = loan.LoanAmount,
+            CurrencyType = loan.CurrencyType,
+            LoanTermInMonths = loan.LoanTermInMonths,
+            ApplicationStatus = Domain.Enums.Application.SENT
+        }, cancellationToken);
+        
         return loan.Id;
     }
     

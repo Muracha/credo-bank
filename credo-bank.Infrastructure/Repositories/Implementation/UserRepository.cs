@@ -1,6 +1,6 @@
-﻿using credo_bank.Domain.Models;
+﻿using credo_bank.Application.Interfaces;
+using credo_bank.Domain.Models;
 using credo_bank.Infrastructure.DataContext;
-using credo_bank.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace credo_bank.Infrastructure.Repositories.Implementation;

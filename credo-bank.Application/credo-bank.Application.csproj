@@ -12,16 +12,17 @@
       <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
       <PackageReference Include="MediatR" Version="12.4.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\credo-bank.Infrastructure\credo-bank.Infrastructure.csproj" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.35.0" />
     </ItemGroup>
 
     <ItemGroup>
       <Reference Include="Microsoft.AspNetCore.Mvc.Core">
         <HintPath>..\..\..\.dotnet\packs\Microsoft.AspNetCore.App.Ref\7.0.17\ref\net7.0\Microsoft.AspNetCore.Mvc.Core.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\credo-bank.Domain\credo-bank.Domain.csproj" />
     </ItemGroup>
 
 </Project>

@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="MassTransit.Abstractions" Version="8.2.5-develop.1930" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.20" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="7.0.20" />
@@ -24,6 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\credo-bank.Application\credo-bank.Application.csproj" />
       <ProjectReference Include="..\credo-bank.Domain\credo-bank.Domain.csproj" />
     </ItemGroup>
 
