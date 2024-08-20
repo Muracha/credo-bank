@@ -91,6 +91,7 @@ builder.Services.AddMassTransit(x =>
     });
 });
 
+builder.Services.AddScoped<IPublishEndpoint>(provider => provider.GetRequiredService<IBus>());
 builder.Services.AddMassTransitHostedService();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();

@@ -44,6 +44,7 @@ public class LoanController : BaseController
         CancellationToken cancellationToken = default)
     {
         var loan = _mapper.Map<AddLoanApplicationCommand>(applyForLoanInputDto);
+        loan.UserId = GetUserId();
         var result = await _mediator.Send(loan, cancellationToken);
         return result.Success ? Ok(result) : NotFound(result);
     }
