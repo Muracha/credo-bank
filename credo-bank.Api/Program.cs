@@ -14,7 +14,6 @@ using Serilog.Sinks.PeriodicBatching;
 var builder = WebApplication.CreateBuilder(args);
 
 var credoDbContextConnectionString = builder.Configuration.GetConnectionString("CredoBankDbContext");
-var logConnetionString = builder.Configuration.GetConnectionString("LogsDbContext");
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
