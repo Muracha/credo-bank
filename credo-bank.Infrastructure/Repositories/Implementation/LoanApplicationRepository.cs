@@ -18,6 +18,7 @@ public class LoanApplicationRepository : BaseRepository, ILoanApplicationReposit
     public async Task<int> AddLoanApplicationAsync(LoanApplication? loan,
         CancellationToken cancellationToken = default)
     {
+        loan.ApplicationStatus = Domain.Enums.Application.SENT;
         _context.LoanApplications.Add(loan);
         await _context.SaveChangesAsync(cancellationToken : cancellationToken);
         
@@ -29,7 +30,7 @@ public class LoanApplicationRepository : BaseRepository, ILoanApplicationReposit
             LoanAmount = loan.LoanAmount,
             CurrencyType = loan.CurrencyType,
             LoanTermInMonths = loan.LoanTermInMonths,
-            ApplicationStatus = Domain.Enums.Application.SENT
+            ApplicationStatus = loan.ApplicationStatus
         }, cancellationToken);
         
         return loan.Id;

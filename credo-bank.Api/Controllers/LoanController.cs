@@ -4,6 +4,7 @@ using credo_bank.Application.MediatR.LoanApplication.Command.Approve;
 using credo_bank.Application.MediatR.LoanApplication.Command.Delete;
 using credo_bank.Application.MediatR.LoanApplication.Command.Reject;
 using credo_bank.Application.MediatR.LoanApplication.Command.Update;
+using credo_bank.Application.MediatR.LoanApplication.Query.GetLoanApplicationByLoanId;
 using credo_bank.Application.MediatR.LoanApplication.Query.GetLoanApplicationsByUserId;
 using credo_bank.Application.Models.DTO.Request;
 using MediatR;
@@ -33,9 +34,9 @@ public class LoanController : BaseController
     }
     
     [HttpGet("loan/{id}")]
-    public async Task<IActionResult> GetLoanById(int loanId, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> GetLoanById(int id, CancellationToken cancellationToken = default)
     {
-        var result = await _mediator.Send(new GetLoanApplicationsByUserIdQuery(loanId), cancellationToken);
+        var result = await _mediator.Send(new GetLoanApplicationByLoanIdQuery(id), cancellationToken);
         return result.Success ? Ok(result) : NotFound(result);
     }
     
@@ -50,19 +51,19 @@ public class LoanController : BaseController
     }
     
     [HttpPut("loan/{id}")]
-    public async Task<IActionResult> UpdateLoan(int loanId, [FromBody] UpdateLoanDto applyForLoanInputDto, 
+    public async Task<IActionResult> UpdateLoan(int id, [FromBody] UpdateLoanDto applyForLoanInputDto, 
         CancellationToken cancellationToken = default)
     {
         var loan = _mapper.Map<UpdateLoanApplicationCommand>(applyForLoanInputDto);
-        loan.LoanId = loanId;
+        loan.LoanId = id;
         var result = await _mediator.Send(loan, cancellationToken);
         return result.Success ? Ok(result) : NotFound(result);
     }
     
     [HttpDelete("loan/{id}")]
-    public async Task<IActionResult> DeleteLoan(int loanId, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> DeleteLoan(int id, CancellationToken cancellationToken = default)
     {
-        var result = await _mediator.Send(new DeleteLoanApplicationCommand(loanId), cancellationToken);
+        var result = await _mediator.Send(new DeleteLoanApplicationCommand(id), cancellationToken);
         return result.Success ? Ok(result) : NotFound(result);
     }
     

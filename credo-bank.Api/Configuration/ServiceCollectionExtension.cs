@@ -1,6 +1,7 @@
 ﻿using credo_bank.Application.Common;
 using credo_bank.Application.Interfaces;
 using credo_bank.Application.Settings;
+using credo_bank.Consumer;
 using credo_bank.Infrastructure.Repositories.Implementation;
 using credo_bank.Middleware.Events;
 
@@ -23,6 +24,9 @@ internal static class ServiceCollectionExtension
         
         //SerilogSink
         services.AddScoped<EfCoreSink>();
+        
+        //Consumers
+        services.AddScoped<LoanApplicationConsumer>();
     }
     public static void AddConfigurations(this IServiceCollection services, IConfiguration configuration)
     {
