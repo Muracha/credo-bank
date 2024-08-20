@@ -1,9 +1,9 @@
-﻿using credo_bank.DAL.Repositories.Interfaces;
-using credo_bank.Domain.Models;
+﻿using credo_bank.Domain.Models;
 using credo_bank.Infrastructure.DataContext;
+using credo_bank.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace credo_bank.DAL.Repositories.Implementation;
+namespace credo_bank.Infrastructure.Repositories.Implementation;
 
 public class LoanApplicationRepository : BaseRepository, ILoanApplicationRepository
 {

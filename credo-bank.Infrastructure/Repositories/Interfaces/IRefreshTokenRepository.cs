@@ -1,6 +1,6 @@
 ﻿using credo_bank.Domain.Models;
 
-namespace credo_bank.DAL.Repositories.Interfaces;
+namespace credo_bank.Infrastructure.Repositories.Interfaces;
 
 public interface IRefreshTokenRepository
 {

@@ -1,6 +1,6 @@
 ﻿using credo_bank.Infrastructure.DataContext;
 
-namespace credo_bank.DAL.Repositories.Implementation;
+namespace credo_bank.Infrastructure.Repositories.Implementation;
 
 public abstract class BaseRepository
 {

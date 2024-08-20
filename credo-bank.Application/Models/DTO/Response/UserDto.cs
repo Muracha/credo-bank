@@ -1,4 +1,4 @@
-﻿namespace credo_bank.Application.Models.DTO;
+﻿namespace credo_bank.Application.Models.DTO.Response;
 
 public class UserDto
 {

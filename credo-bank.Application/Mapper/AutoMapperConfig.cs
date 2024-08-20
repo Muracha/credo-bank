@@ -6,6 +6,7 @@ using credo_bank.Application.MediatR.User.Commands.Register;
 using credo_bank.Application.MediatR.User.Commands.Update;
 using credo_bank.Application.Models.DTO;
 using credo_bank.Application.Models.DTO.Request;
+using credo_bank.Application.Models.DTO.Response;
 using credo_bank.Domain.Models;
 
 namespace credo_bank.Application.Mapper;

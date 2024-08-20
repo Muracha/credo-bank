@@ -1,9 +1,10 @@
 ﻿using System.Security.Cryptography;
 using credo_bank.Application.Models.DTO;
+using credo_bank.Application.Models.DTO.Response;
 using credo_bank.Application.Settings;
 using credo_bank.Application.Utilities.Jwt;
-using credo_bank.DAL.Repositories.Interfaces;
 using credo_bank.Domain.Models;
+using credo_bank.Infrastructure.Repositories.Interfaces;
 
 namespace credo_bank.Application.Helper;
 

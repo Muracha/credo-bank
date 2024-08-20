@@ -1,5 +1,5 @@
 ﻿using credo_bank.Application.Utilities.ApiServiceResponse;
-using credo_bank.DAL.Repositories.Interfaces;
+using credo_bank.Infrastructure.Repositories.Interfaces;
 using MediatR;
 
 namespace credo_bank.Application.MediatR.User.Commands.Update;
