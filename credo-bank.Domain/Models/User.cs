@@ -13,7 +13,8 @@ public class User : GenericEntity
     public string? LastName { get; set; }
     
     [Required]
-    public int IdentificationNumber { get; set; }
+    [StringLength(11, MinimumLength = 11)]
+    public string IdentificationNumber { get; set; }
     
     [Required]
     [StringLength(255)]

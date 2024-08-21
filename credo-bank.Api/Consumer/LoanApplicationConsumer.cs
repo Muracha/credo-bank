@@ -5,7 +5,7 @@ using MassTransit;
 namespace credo_bank.Consumer;
 
 public class LoanApplicationConsumer : IConsumer<LoanApplicationSubmitted>
-{
+{ 
     private readonly ILoanApplicationRepository _loanApplicationRepository;
     public LoanApplicationConsumer(ILoanApplicationRepository loanApplicationRepository)
     {

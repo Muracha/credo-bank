@@ -3,4 +3,4 @@ using MediatR;
 
 namespace credo_bank.Application.MediatR.User.Queries.GetUserByIdentificationNumber;
 
-public record class GetUserByIdentificationNumberQuery(int IdentificationNumber) : IRequest<ApiWrapper<GetUserByIdnetificationNumberResult>>;
+public record class GetUserByIdentificationNumberQuery(string IdentificationNumber) : IRequest<ApiWrapper<GetUserByIdnetificationNumberResult>>;

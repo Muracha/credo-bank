@@ -16,7 +16,7 @@ public interface IUserRepository
     Task<bool> UpdateUserAsync(User? user,
         CancellationToken cancellationToken = default);
 
-    Task<User> GetUserByIdentificationNumber(int number,
+    Task<User> GetUserByIdentificationNumber(string number,
         CancellationToken cancellationToken = default);
 
     Task<User> GetByRefreshTokenAsync(string refreshToken,

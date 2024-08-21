@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using credo_bank.Infrastructure.DataContext;
 
@@ -11,9 +12,11 @@ using credo_bank.Infrastructure.DataContext;
 namespace credo_bank.Infrastructure.Migrations
 {
     [DbContext(typeof(CredoBankDbContext))]
-    partial class CredoBankDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240821170430_classUpdate")]
+    partial class classUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,8 +122,7 @@ namespace credo_bank.Infrastructure.Migrations
 
                     b.Property<string>("IdentificationNumber")
                         .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()

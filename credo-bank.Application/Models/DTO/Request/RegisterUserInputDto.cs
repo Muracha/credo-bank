@@ -3,6 +3,6 @@
 public record RegisterUserInputDto(
     string FirstName, 
     string LastName, 
-    int IdentificationNumber, 
+    string IdentificationNumber, 
     string Password, 
     DateTime DateOfBirth);
