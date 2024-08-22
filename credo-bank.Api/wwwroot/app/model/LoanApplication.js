@@ -21,20 +21,29 @@
                     2: 'USD',
                     3: 'EUR'
                 };
-                return currencyTypes[data.currencyType];
+                return currencyTypes[data.currencyType] || 'Unknown';
             }
         },
         {
             name: 'applicationStatusText',
             calculate: function(data) {
-                var statuses = ['Unknown', 'Pending', 'Approved', 'Rejected', 'Under Review'];
+                var statuses = {
+                    1: 'ACCEPTED',
+                    2: 'CANCELLED',
+                    3: 'SENT',
+                    4: 'IN PROGRESS'
+                };
                 return statuses[data.applicationStatus] || 'Unknown';
             }
         },
         {
             name: 'loanTypeText',
             calculate: function(data) {
-                var types = ['Unknown', 'Personal', 'Business', 'Mortgage', 'Auto'];
+                var types = {
+                    1: 'QUICK LOAN',
+                    2: 'AUTO LOAN',
+                    3: 'INSTALLMENT LOAN'
+                };
                 return types[data.loanType] || 'Unknown';
             }
         },

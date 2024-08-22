@@ -36,19 +36,7 @@
         columns: [
             { text: 'Loan Amount', dataIndex: 'loanAmount', renderer: 'renderCurrency', flex: 1 },
             { text: 'Term (months)', dataIndex: 'loanTermInMonths', flex: 1 },
-            {
-                text: 'Currency',
-                dataIndex: 'currencyType',
-                renderer: function(value) {
-                    var currencies = {
-                        1: 'GEL',
-                        2: 'USD',
-                        3: 'EUR'
-                    };
-                    return currencies[value] || 'Unknown';
-                },
-                flex: 1
-            },
+            { text: 'Currency', dataIndex: 'currencyTypeText', flex: 1 },
             { text: 'Status', dataIndex: 'applicationStatusText', flex: 1 },
             { text: 'Loan Type', dataIndex: 'loanTypeText', flex: 1 },
             { text: 'Application Date', dataIndex: 'createDateFormatted', flex: 1 },
@@ -74,6 +62,10 @@
         tbar: [{
             text: 'Add New Loan Application',
             handler: 'onAddLoanClick'
+        }, '->', {
+            text: 'Refresh',
+            iconCls: 'x-fa fa-refresh',
+            handler: 'onRefreshClick'
         }]
     }]
 });

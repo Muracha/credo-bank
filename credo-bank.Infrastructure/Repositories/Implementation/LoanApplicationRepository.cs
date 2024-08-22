@@ -22,16 +22,16 @@ public class LoanApplicationRepository : BaseRepository, ILoanApplicationReposit
         _context.LoanApplications.Add(loan);
         await _context.SaveChangesAsync(cancellationToken : cancellationToken);
         
-        await _publishEndpoint.Publish(new LoanApplicationSubmitted
-        {
-            LoanId = loan.Id,
-            UserId = loan.UserId,
-            LoanType = loan.LoanType,
-            LoanAmount = loan.LoanAmount,
-            CurrencyType = loan.CurrencyType,
-            LoanTermInMonths = loan.LoanTermInMonths,
-            ApplicationStatus = loan.ApplicationStatus
-        }, cancellationToken);
+        // await _publishEndpoint.Publish(new LoanApplicationSubmitted
+        // {
+        //     LoanId = loan.Id,
+        //     UserId = loan.UserId,
+        //     LoanType = loan.LoanType,
+        //     LoanAmount = loan.LoanAmount,
+        //     CurrencyType = loan.CurrencyType,
+        //     LoanTermInMonths = loan.LoanTermInMonths,
+        //     ApplicationStatus = loan.ApplicationStatus
+        // }, cancellationToken);
         
         return loan.Id;
     }
