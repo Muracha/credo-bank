@@ -6,10 +6,9 @@ using MediatR;
 namespace credo_bank.Application.MediatR.LoanApplication.Command.Add;
 
 public record AddLoanApplicationCommand(
-    int LoanAmount,
+    decimal LoanAmount,
     int LoanTermInMonths,
     Currency CurrencyType,
-    Domain.Enums.Application ApplicationStatus,
     LoanType LoanType) : IRequest<ApiWrapper<AddLoanApplicationResult>>
 {
     public int UserId { get; set; }

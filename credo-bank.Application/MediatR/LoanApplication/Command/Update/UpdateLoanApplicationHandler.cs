@@ -23,12 +23,17 @@ public class UpdateLoanApplicationHandler : IRequestHandler<UpdateLoanApplicatio
         
         if (oldLoan == null)
             return ApiWrapper<UpdateLoanApplicationResult>.FailureResponse("Loan not found");
+
+        if (oldLoan.ApplicationStatus != Domain.Enums.Application.INPROGRESS)
+        {
+            return ApiWrapper<UpdateLoanApplicationResult>.FailureResponse("Loan must be in progress to be updated");
+        }
         
-        oldLoan.ApplicationStatus = request.ApplicationStatus;
         oldLoan.LoanAmount = request.LoanAmount;
         oldLoan.LoanTermInMonths = request.LoanTermInMonths;
         
         await _loanApplicationRepository.UpdateLoanApplicationAsync(oldLoan, cancellationToken: cancellationToken);
+        
         var newLoan = _mapper.Map<LoanApplicationDto>(oldLoan);
         
         return ApiWrapper<UpdateLoanApplicationResult>.SuccessResponse(new UpdateLoanApplicationResult(newLoan));

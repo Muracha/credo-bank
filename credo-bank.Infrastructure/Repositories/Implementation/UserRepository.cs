@@ -12,7 +12,7 @@ public class UserRepository : BaseRepository, IUserRepository
     public async Task<int> AddUserAsync(User? user,
         CancellationToken cancellationToken = default)
     {
-        _context.Users.Add(user);
+        await _context.Users.AddAsync(user);
         await _context.SaveChangesAsync(cancellationToken : cancellationToken);
         return user.Id;
     }

@@ -8,13 +8,13 @@
     ],
 
     launch: function() {
-        // Check if user is already logged in
         var authToken = localStorage.getItem('authToken');
         if (authToken) {
-            // User is logged in, show fullscreen loan application view
+            Ext.Ajax.setDefaultHeaders({
+                'Authorization': 'Bearer ' + authToken
+            });
             Ext.create('app.view.loanapplication.LoanApplication');
         } else {
-            // User is not logged in, show login form
             Ext.create('app.view.login.Login', {
                 layout: {
                     type: 'vbox',

@@ -23,7 +23,7 @@ public class AddLoanApplicationHandler : IRequestHandler<AddLoanApplicationComma
             LoanAmount = request.LoanAmount,
             LoanTermInMonths = request.LoanTermInMonths,
             CurrencyType = request.CurrencyType,
-            ApplicationStatus = request.ApplicationStatus,
+            ApplicationStatus = Domain.Enums.Application.SENT,
             LoanType = request.LoanType
         };
         

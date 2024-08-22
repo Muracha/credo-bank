@@ -11,7 +11,7 @@ public class LoanApplication : GenericEntity
     public int UserId { get; set; }
     
     [Required]
-    public int LoanAmount { get; set; }
+    public decimal LoanAmount { get; set; }
     
     [Required]
     public int LoanTermInMonths { get; set; }

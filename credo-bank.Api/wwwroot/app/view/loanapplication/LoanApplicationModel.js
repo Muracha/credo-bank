@@ -15,7 +15,8 @@
                     messageProperty: 'message'
                 }
             },
-            autoLoad: true
+            autoLoad: false
         }
     }
 });
+

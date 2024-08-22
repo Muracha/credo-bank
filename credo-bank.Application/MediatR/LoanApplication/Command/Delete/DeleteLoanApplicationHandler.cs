@@ -18,6 +18,11 @@ public class DeleteLoanApplicationHandler : IRequestHandler<DeleteLoanApplicatio
         
         if (loanApplication == null)
             return ApiWrapper<DeleteLoanApplicationResult>.FailureResponse("Loan application not found");
+
+        if (loanApplication.ApplicationStatus is Domain.Enums.Application.SENT or Domain.Enums.Application.INPROGRESS)
+        {
+            return ApiWrapper<DeleteLoanApplicationResult>.FailureResponse("Loan application can not be deleted while in progress or sent position.");
+        }
         
         var IsDeleted = await _loanApplicationRepository.DeleteLoanApplicationAsync(loanApplication, cancellationToken: cancellationToken);
         

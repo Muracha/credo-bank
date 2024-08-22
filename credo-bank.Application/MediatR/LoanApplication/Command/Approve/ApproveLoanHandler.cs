@@ -7,7 +7,6 @@ namespace credo_bank.Application.MediatR.LoanApplication.Command.Approve;
 public class ApproveLoanHandler : IRequestHandler<ApproveLoanCommand, ApiWrapper<ApproveLoanResult>>
 {
     private readonly ILoanApplicationRepository _repository;
-
     public ApproveLoanHandler(ILoanApplicationRepository repository)
     {
         _repository = repository;
@@ -19,6 +18,7 @@ public class ApproveLoanHandler : IRequestHandler<ApproveLoanCommand, ApiWrapper
         if (loan != null && loan.ApplicationStatus == Domain.Enums.Application.INPROGRESS)
         {
             loan.ApplicationStatus = Domain.Enums.Application.ACCEPTED;
+            
             var result =  await _repository.UpdateLoanApplicationAsync(loan, cancellationToken);
             
             return ApiWrapper<ApproveLoanResult>.SuccessResponse(new ApproveLoanResult(result), "Loan application has been accepted successfully");

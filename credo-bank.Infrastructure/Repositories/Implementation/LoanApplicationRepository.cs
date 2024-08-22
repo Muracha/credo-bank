@@ -18,27 +18,29 @@ public class LoanApplicationRepository : BaseRepository, ILoanApplicationReposit
     public async Task<int> AddLoanApplicationAsync(LoanApplication? loan,
         CancellationToken cancellationToken = default)
     {
-        loan.ApplicationStatus = Domain.Enums.Application.SENT;
-        _context.LoanApplications.Add(loan);
+        await _context.LoanApplications.AddAsync(loan);
+        
         await _context.SaveChangesAsync(cancellationToken : cancellationToken);
         
-        // await _publishEndpoint.Publish(new LoanApplicationSubmitted
-        // {
-        //     LoanId = loan.Id,
-        //     UserId = loan.UserId,
-        //     LoanType = loan.LoanType,
-        //     LoanAmount = loan.LoanAmount,
-        //     CurrencyType = loan.CurrencyType,
-        //     LoanTermInMonths = loan.LoanTermInMonths,
-        //     ApplicationStatus = loan.ApplicationStatus
-        // }, cancellationToken);
+        await _publishEndpoint.Publish(new LoanApplicationSubmitted
+        {
+            LoanId = loan.Id,
+            UserId = loan.UserId,
+            LoanType = loan.LoanType,
+            LoanAmount = loan.LoanAmount,
+            CurrencyType = loan.CurrencyType,
+            LoanTermInMonths = loan.LoanTermInMonths,
+            ApplicationStatus = loan.ApplicationStatus
+        }, cancellationToken);
         
         return loan.Id;
     }
     
     public async Task<List<LoanApplication>> GetLoanApplicationsByUserIdAsync(int userId,
         CancellationToken cancellationToken = default)
-        => await _context.LoanApplications.Where(x => x.IsDeleted == false).Where(x => x.UserId == userId)
+        => await _context.LoanApplications
+            .Where(x => x.IsDeleted == false)
+            .Where(x => x.UserId == userId)
             .ToListAsync(cancellationToken: cancellationToken);
     
     public async Task<LoanApplication?> GetLoanWithId(int loanId,
@@ -53,13 +55,17 @@ public class LoanApplicationRepository : BaseRepository, ILoanApplicationReposit
         CancellationToken cancellationToken = default)
     {
         _context.LoanApplications.Update(loan);
+        
         return await _context.SaveChangesAsync(cancellationToken: cancellationToken) > 0;
     }
     
     public async Task<bool> DeleteLoanApplicationAsync(LoanApplication? loan,
         CancellationToken cancellationToken = default)
     {
-        _context.LoanApplications.Remove(loan);
+        loan.IsDeleted = true;
+        
+        _context.LoanApplications.Update(loan);
+        
         return await _context.SaveChangesAsync(cancellationToken: cancellationToken) > 0;
     }
 }

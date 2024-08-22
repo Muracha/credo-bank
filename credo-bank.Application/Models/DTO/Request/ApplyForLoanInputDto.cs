@@ -4,7 +4,7 @@ namespace credo_bank.Application.Models.DTO.Request;
 
 public record ApplyForLoanInputDto(
     int UserId, 
-    int LoanAmount, 
+    decimal LoanAmount, 
     int LoanTermInMonths, 
     Currency CurrencyType,
     Domain.Enums.Application ApplicationStatus,

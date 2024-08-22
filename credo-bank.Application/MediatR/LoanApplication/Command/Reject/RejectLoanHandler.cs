@@ -15,9 +15,10 @@ public class RejectLoanHandler : IRequestHandler<RejectLoanCommand, ApiWrapper<R
     public async Task<ApiWrapper<RejectLoanResult>> Handle(RejectLoanCommand request, CancellationToken cancellationToken)
     {
         var loan = await _repository.GetLoanWithId(request.LoanId, cancellationToken);
-        if (loan != null && loan.ApplicationStatus == Domain.Enums.Application.CANCELLED)
+        if (loan != null && loan.ApplicationStatus == Domain.Enums.Application.INPROGRESS)
         {
             loan.ApplicationStatus = Domain.Enums.Application.CANCELLED;
+            
             var result =  await _repository.UpdateLoanApplicationAsync(loan, cancellationToken);
             
             return ApiWrapper<RejectLoanResult>.SuccessResponse(new RejectLoanResult(result), "Loan application has been cancelled successfully");

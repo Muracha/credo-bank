@@ -33,7 +33,7 @@ public class LoanController : BaseController
         return result.Success ? Ok(result) : NotFound(result);
     }
     
-    [HttpGet("loan/{id}")]
+    [HttpGet("{id}")]
     public async Task<IActionResult> GetLoanById(int id, CancellationToken cancellationToken = default)
     {
         var result = await _mediator.Send(new GetLoanApplicationByLoanIdQuery(id), cancellationToken);
@@ -50,7 +50,7 @@ public class LoanController : BaseController
         return result.Success ? Ok(result) : NotFound(result);
     }
     
-    [HttpPut("loan/{id}")]
+    [HttpPut("{id}")]
     public async Task<IActionResult> UpdateLoan(int id, [FromBody] UpdateLoanDto applyForLoanInputDto, 
         CancellationToken cancellationToken = default)
     {
@@ -60,7 +60,7 @@ public class LoanController : BaseController
         return result.Success ? Ok(result) : NotFound(result);
     }
     
-    [HttpDelete("loan/{id}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteLoan(int id, CancellationToken cancellationToken = default)
     {
         var result = await _mediator.Send(new DeleteLoanApplicationCommand(id), cancellationToken);

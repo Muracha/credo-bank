@@ -55,7 +55,11 @@
                     iconCls: 'x-fa fa-check',
                     tooltip: 'Approve',
                     handler: 'onApproveClick'
-                }],
+                }, {
+                    iconCls: 'x-fa fa-times',
+                    tooltip: 'Reject',
+                    handler: 'onRejectClick',
+                    }],
                 width: 100
             }
         ],

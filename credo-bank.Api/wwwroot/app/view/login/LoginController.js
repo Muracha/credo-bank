@@ -4,19 +4,18 @@
 
     onLoginClick: function() {
         var view = this.getView();
-        var form = view.down('form'); // Find the form within the view
+        var form = view.down('form');
 
         if (form && form.isValid()) {
             var values = form.getValues();
-
-            // Create the LoginInputDto object
+            
             var loginInputDto = {
                 identificationNumber: values.identificationNumber,
                 password: values.password
             };
 
             Ext.Ajax.request({
-                url: 'https://localhost:44313/auth/login', // Adjust this URL to match your API endpoint
+                url: 'https://localhost:44313/auth/login',
                 method: 'POST',
                 jsonData: loginInputDto,
                 success: this.onLoginSuccess,
@@ -31,11 +30,10 @@
     onLoginSuccess: function(response) {
         var result = Ext.decode(response.responseText);
         if (result.data && result.data.authReposnoseDto && result.data.authReposnoseDto.token && result.data.authReposnoseDto.refreshToken) {
-            // Store the tokens
+
             localStorage.setItem('authToken', result.data.authReposnoseDto.token);
             localStorage.setItem('refreshToken', result.data.authReposnoseDto.refreshToken);
-
-            // Set up default headers for future requests
+            
             Ext.Ajax.setDefaultHeaders({
                 'Authorization': 'Bearer ' + result.data.authReposnoseDto.token
             });
@@ -67,10 +65,9 @@
     },
 
     navigateToLoanApplication: function() {
-        // Remove the login view
-        this.getView().destroy();
 
-        // Create and show the Loan Application view
+        this.getView().destroy();
+        
         Ext.create('app.view.loanapplication.LoanApplication', {
             renderTo: Ext.getBody(),
             fullscreen: true

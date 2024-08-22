@@ -3,7 +3,7 @@
 
     fields: [
         { name: 'id', type: 'int' },
-        { name: 'loanAmount', type: 'int' },
+        { name: 'loanAmount', type: 'float' },
         { name: 'loanTermInMonths', type: 'int' },
         { name: 'currencyType', type: 'int' },
         { name: 'applicationStatus', type: 'int' },
