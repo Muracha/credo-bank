@@ -24,7 +24,7 @@ public class UpdateLoanApplicationHandler : IRequestHandler<UpdateLoanApplicatio
         if (oldLoan == null)
             return ApiWrapper<UpdateLoanApplicationResult>.FailureResponse("Loan not found");
 
-        if (oldLoan.ApplicationStatus != Domain.Enums.Application.INPROGRESS)
+        if (oldLoan.ApplicationStatus != Domain.Enums.Application.SENT)
         {
             return ApiWrapper<UpdateLoanApplicationResult>.FailureResponse("Loan must be in progress to be updated");
         }

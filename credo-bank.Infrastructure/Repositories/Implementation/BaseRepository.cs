@@ -9,4 +9,7 @@ public abstract class BaseRepository
     {
         _context = credoBankDbContext;
     }
+    
+    public async Task<bool> SaveChangesAsync(CancellationToken cancellationToken = default)
+        => await _context.SaveChangesAsync(cancellationToken) > 0;
 }

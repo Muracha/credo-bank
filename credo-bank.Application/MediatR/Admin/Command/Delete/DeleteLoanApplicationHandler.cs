@@ -2,7 +2,7 @@
 using credo_bank.Application.Utilities.ApiServiceResponse;
 using MediatR;
 
-namespace credo_bank.Application.MediatR.LoanApplication.Command.Delete;
+namespace credo_bank.Application.MediatR.Admin.Command.Delete;
 
 public class DeleteLoanApplicationHandler : IRequestHandler<DeleteLoanApplicationCommand, ApiWrapper<DeleteLoanApplicationResult>>
 {

@@ -28,6 +28,7 @@ public class User : GenericEntity
     
     public DateTime? UpdatedAt { get; set; }
     
+    public ICollection<UserRole>? UserRoles { get; set; }
     public ICollection<RefreshToken>? RefreshTokens { get; set; }
     public ICollection<LoanApplication>? LoanApplications { get; set; }
 }

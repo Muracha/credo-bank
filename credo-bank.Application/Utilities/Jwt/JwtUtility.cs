@@ -13,12 +13,14 @@ public static class JwtUtility
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var tokenKey = Encoding.ASCII.GetBytes(jwtSettings.Key);
+        var role = user.UserRoles?.FirstOrDefault()?.Role?.Name ?? "User"; // Default to "User" role if no role is found
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.FirstName +" "+ user.LastName),
+                new Claim(ClaimTypes.Role, role)
             }),
             Issuer = jwtSettings.Issuer,
             Audience = jwtSettings.Audience,
@@ -27,6 +29,7 @@ public static class JwtUtility
                 SecurityAlgorithms.HmacSha256Signature)
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);
+        
         return tokenHandler.WriteToken(token);
     }
 }

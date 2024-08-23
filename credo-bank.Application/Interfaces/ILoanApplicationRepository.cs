@@ -18,4 +18,7 @@ public interface ILoanApplicationRepository
 
     Task<List<LoanApplication>> GetLoanApplicationsByUserIdAsync(int userId,
         CancellationToken cancellationToken = default);
+
+    Task<List<LoanApplication>> GetLoanApplicationsAsync(
+        CancellationToken cancellationToken = default);
 }

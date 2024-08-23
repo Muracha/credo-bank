@@ -68,4 +68,11 @@ public class LoanApplicationRepository : BaseRepository, ILoanApplicationReposit
         
         return await _context.SaveChangesAsync(cancellationToken: cancellationToken) > 0;
     }
+    
+    public async Task<List<LoanApplication>> GetLoanApplicationsAsync(
+        CancellationToken cancellationToken = default)
+        => await _context.LoanApplications
+            .Where(x => x.IsDeleted == false)
+            .Where(x => x.ApplicationStatus == Domain.Enums.Application.INPROGRESS)
+            .ToListAsync(cancellationToken: cancellationToken);
 }

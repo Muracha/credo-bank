@@ -1,16 +1,16 @@
-﻿Ext.define('app.view.loanapplication.LoanApplicationModel', {
+Ext.define('app.view.adminApplication.AdminApplicationModel', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.loanapplication',
+    alias: 'viewmodel.adminapplication',
 
     stores: {
         loans: {
-            model: 'app.model.LoanApplication',
+            model: 'app.model.AdminApplication',
             proxy: {
                 type: 'ajax',
-                url: 'https://localhost:44313/loan',
+                url: 'https://localhost:44313/admin',
                 reader: {
                     type: 'json',
-                    rootProperty: 'data.loanApplicationsDto',
+                    rootProperty: 'data.loanApplicationDtos',
                     successProperty: 'success',
                     messageProperty: 'message'
                 }

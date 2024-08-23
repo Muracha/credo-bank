@@ -2,7 +2,7 @@
 using credo_bank.Application.Utilities.ApiServiceResponse;
 using MediatR;
 
-namespace credo_bank.Application.MediatR.LoanApplication.Command.Approve;
+namespace credo_bank.Application.MediatR.Admin.Command.Approve;
 
 public class ApproveLoanHandler : IRequestHandler<ApproveLoanCommand, ApiWrapper<ApproveLoanResult>>
 {

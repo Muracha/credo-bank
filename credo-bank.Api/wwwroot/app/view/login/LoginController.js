@@ -29,22 +29,35 @@
 
     onLoginSuccess: function(response) {
         var result = Ext.decode(response.responseText);
-        if (result.data && result.data.authReposnoseDto && result.data.authReposnoseDto.token && result.data.authReposnoseDto.refreshToken) {
+        if (result.data && result.data.authReposnoseDto) {
+            var token = result.data.authReposnoseDto.token;
 
-            localStorage.setItem('authToken', result.data.authReposnoseDto.token);
-            localStorage.setItem('refreshToken', result.data.authReposnoseDto.refreshToken);
-            
+            localStorage.setItem('authToken', token);
+
             Ext.Ajax.setDefaultHeaders({
-                'Authorization': 'Bearer ' + result.data.authReposnoseDto.token
+                'Authorization': 'Bearer ' + token
             });
 
+            // Simplified role check
+            var isAdmin = this.hasRole(token, 'Admin');
+
             Ext.Msg.alert('Success', 'Login successful!', function() {
-                console.log('Login successful.');
-                this.navigateToLoanApplication();
+                if (isAdmin) {
+                    localStorage.setItem('userRole', 'Admin');
+                    this.navigateToAdminDashboard();
+                } else {
+                    localStorage.setItem('userRole', 'User');
+                    this.navigateToLoanApplication();
+                }
             }, this);
         } else {
             Ext.Msg.alert('Error', 'Invalid response from server.');
         }
+    },
+
+    hasRole: function(token, roleName) {
+        var payload = JSON.parse(atob(token.split('.')[1]));
+        return payload.role;
     },
 
     onLoginFailure: function(response) {
@@ -64,10 +77,20 @@
         Ext.create('app.view.register.Register').show();
     },
 
-    navigateToLoanApplication: function() {
+    navigateToAdminDashboard: function() {
 
         this.getView().destroy();
         
+        Ext.create('app.view.adminApplication.AdminApplication', {
+            renderTo: Ext.getBody(),
+            fullscreen: true
+        });
+    },
+    
+    navigateToLoanApplication: function() {
+
+        this.getView().destroy();
+
         Ext.create('app.view.loanapplication.LoanApplication', {
             renderTo: Ext.getBody(),
             fullscreen: true

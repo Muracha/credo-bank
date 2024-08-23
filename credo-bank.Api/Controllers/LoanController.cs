@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using credo_bank.Application.MediatR.Admin.Command.Approve;
+using credo_bank.Application.MediatR.Admin.Command.Delete;
+using credo_bank.Application.MediatR.Admin.Command.Reject;
 using credo_bank.Application.MediatR.LoanApplication.Command.Add;
-using credo_bank.Application.MediatR.LoanApplication.Command.Approve;
-using credo_bank.Application.MediatR.LoanApplication.Command.Delete;
-using credo_bank.Application.MediatR.LoanApplication.Command.Reject;
 using credo_bank.Application.MediatR.LoanApplication.Command.Update;
 using credo_bank.Application.MediatR.LoanApplication.Query.GetLoanApplicationByLoanId;
 using credo_bank.Application.MediatR.LoanApplication.Query.GetLoanApplicationsByUserId;
@@ -58,26 +58,5 @@ public class LoanController : BaseController
         loan.LoanId = id;
         var result = await _mediator.Send(loan, cancellationToken);
         return result.Success ? Ok(result) : NotFound(result);
-    }
-    
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteLoan(int id, CancellationToken cancellationToken = default)
-    {
-        var result = await _mediator.Send(new DeleteLoanApplicationCommand(id), cancellationToken);
-        return result.Success ? Ok(result) : NotFound(result);
-    }
-    
-    [HttpPost("approve/{id}")]
-    public async Task<IActionResult> ApproveLoan(int id)
-    {
-        var result = await _mediator.Send(new ApproveLoanCommand(id));
-        return result.Success ? Ok(result) : BadRequest(result);
-    }
-    
-    [HttpPost("reject/{id}")]
-    public async Task<IActionResult> RejectLoan(int id)
-    {
-        var result = await _mediator.Send(new RejectLoanCommand(id));
-        return result.Success ? Ok(result) : BadRequest(result);
     }
 }

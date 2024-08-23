@@ -21,4 +21,9 @@ public interface IUserRepository
 
     Task<User> GetByRefreshTokenAsync(string refreshToken,
         CancellationToken cancellationToken = default);
+
+    Task<User> GetByIdWithRoleWithTrackingAsync(int id,
+        CancellationToken cancellationToken = default);
+
+    Task<bool> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

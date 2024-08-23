@@ -1,16 +1,16 @@
-﻿Ext.define('app.view.loanapplication.LoanApplication', {
+Ext.define('app.view.adminApplication.AdminApplication', {
     extend: 'Ext.container.Viewport',
-    xtype: 'loanapplicationview',
+    xtype: 'adminapplicationview',
 
     requires: [
-        'app.view.loanapplication.LoanApplicationController',
-        'app.view.loanapplication.LoanApplicationModel',
-        'app.model.LoanApplication'
+        'app.view.adminApplication.AdminApplicationController',
+        'app.view.adminApplication.AdminApplicationModel',
+        'app.model.AdminApplication'
     ],
 
-    controller: 'loanapplication',
+    controller: 'adminapplication',
     viewModel: {
-        type: 'loanapplication'
+        type: 'adminapplication'
     },
 
     layout: 'border',
@@ -43,18 +43,27 @@
             {
                 xtype: 'actioncolumn',
                 text: 'Actions',
-                items: [{
+                items: [ {
                     iconCls: 'x-fa fa-edit',
                     tooltip: 'Update',
                     handler: 'onUpdateClick'
-                }  ],
+                },{
+                    iconCls: 'x-fa fa-trash',
+                    tooltip: 'Delete',
+                    handler: 'onDeleteClick'
+                }, {
+                    iconCls: 'x-fa fa-check',
+                    tooltip: 'Approve',
+                    handler: 'onApproveClick'
+                }, {
+                    iconCls: 'x-fa fa-times',
+                    tooltip: 'Reject',
+                    handler: 'onRejectClick',
+                }],
                 width: 100
             }
         ],
-        tbar: [{
-            text: 'Add New Loan Application',
-            handler: 'onAddLoanClick'
-        }, '->', {
+        tbar: ['->', {
             text: 'Refresh',
             iconCls: 'x-fa fa-refresh',
             handler: 'onRefreshClick'
