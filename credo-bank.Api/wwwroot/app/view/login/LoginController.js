@@ -42,7 +42,7 @@
             var isAdmin = this.hasRole(token, 'Admin');
 
             Ext.Msg.alert('Success', 'Login successful!', function() {
-                if (isAdmin) {
+                if (isAdmin === 'Admin') {
                     localStorage.setItem('userRole', 'Admin');
                     this.navigateToAdminDashboard();
                 } else {

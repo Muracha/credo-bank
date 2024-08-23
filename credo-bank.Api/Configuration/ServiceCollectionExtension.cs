@@ -23,9 +23,6 @@ internal static class ServiceCollectionExtension
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
         
-        //SerilogSink
-        services.AddScoped<EfCoreSink>();
-        
         //Consumers
         services.AddScoped<LoanApplicationConsumer>();
     }

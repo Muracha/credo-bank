@@ -21,7 +21,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Tera Auth Api", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Credo Auth Api", Version = "v1" });
 
     var securityScheme = new OpenApiSecurityScheme
     {
@@ -51,21 +51,9 @@ builder.Services.AddConfigurations(builder.Configuration);
 
 builder.Services.AddDbContext<CredoBankDbContext>(options => options.UseSqlServer(credoDbContextConnectionString));
 
-var serviceProvider = builder.Services.BuildServiceProvider();
-var efCoreSink = serviceProvider.GetRequiredService<EfCoreSink>();
-
-var batchingOptions = new PeriodicBatchingSinkOptions
-{
-    BatchSizeLimit = 10,
-    Period = TimeSpan.FromSeconds(5),
-    EagerlyEmitFirstEvent = true
-};
-
-var batchedSink = new PeriodicBatchingSink(efCoreSink, batchingOptions);
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
     .Enrich.With(new CredentialsEnricher())
-    .WriteTo.Async(wt => wt.Sink(batchedSink))
     .WriteTo.Console()
     .WriteTo.Seq("http://localhost:5341")
     .CreateLogger();
@@ -130,9 +118,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllowAll");
 
+app.UseMiddleware<ExceptionMiddleware>();
+
 app.UseMiddleware<RequestLoggingMiddleware>();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

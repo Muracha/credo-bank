@@ -15,60 +15,28 @@ public class RequestLoggingMiddleware
     public async Task InvokeAsync(HttpContext context)
     {
         context.Request.EnableBuffering();
-        var requestBodyContent = await ReadRequestBodyAsync(context.Request);
-        var originalBodyStream = context.Response.Body;
-
-        using (var responseBody = new MemoryStream())
-        {
-            context.Response.Body = responseBody;
-
-            await _next(context);
-
-            var responseBodyContent = await ReadResponseBodyAsync(context.Response);
-            await responseBody.CopyToAsync(originalBodyStream);
-
-            LogRequestAndResponse(context, requestBodyContent, responseBodyContent);
-        }
-    }
-
-    private async Task<string> ReadRequestBodyAsync(HttpRequest request)
-    {
-        request.Body.Position = 0;
-        using (var reader = new StreamReader(request.Body, Encoding.UTF8, leaveOpen: true))
-        {
-            var content = await reader.ReadToEndAsync();
-            request.Body.Position = 0;
-            return content;
-        }
-    }
-
-    private async Task<string> ReadResponseBodyAsync(HttpResponse response)
-    {
-        response.Body.Seek(0, SeekOrigin.Begin);
-        var text = await new StreamReader(response.Body).ReadToEndAsync();
-        response.Body.Seek(0, SeekOrigin.Begin);
-        return text;
-    }
-
-    private void LogRequestAndResponse(HttpContext context, string requestBody, string responseBody)
-    {
+        var requestBody = await new StreamReader(context.Request.Body).ReadToEndAsync();
+        context.Request.Body.Position = 0;
+        
         var idClaim = context.User.FindFirst(ClaimTypes.NameIdentifier);
+        int.TryParse(idClaim?.Value, out var id);
+        
+        var userId = context.User.Identity.IsAuthenticated ? id.ToString() : "-1";
+        var endpoint = context.Request.Path;
 
-        int id;
-        if (!int.TryParse(idClaim?.Value, out id))
-        {
-            id = -1;
-        }
+        var originalBodyStream = context.Response.Body;
+        using var responseBody = new MemoryStream();
+        context.Response.Body = responseBody;
 
-        var emailClaim = context.User.FindFirst(ClaimTypes.Email);
-        var email = emailClaim?.Value ?? string.Empty;
+        await _next(context);
 
-        Log.Information("Credo - Request {Method} {Url} => {StatusCode} \nRequest Body: {RequestBody} \nResponse Body: {ResponseBody} \nUserId = {UserId}",
-            context.Request?.Method,
-            context.Request?.Path.Value,
-            context.Response?.StatusCode,
-            requestBody,
-            responseBody,
-            id);
+        context.Response.Body.Seek(0, SeekOrigin.Begin);
+        var responseBodyText = await new StreamReader(context.Response.Body).ReadToEndAsync();
+        context.Response.Body.Seek(0, SeekOrigin.Begin);
+
+        Log.Information("Request: {RequestBody}, Endpoint: {Endpoint}, Date: {Date}, UserId: {UserId}, Response: {ResponseBody}",
+            requestBody, endpoint, DateTime.Now, userId, responseBodyText);
+
+        await responseBody.CopyToAsync(originalBodyStream);
     }
 }
